@@ -1,0 +1,94 @@
+name: Community package validation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'arch/**'
+      - 'boot/**'
+      - 'kernel/**'
+      - 'sdk/**'
+      - 'scripts/release/community.py'
+      - 'scripts/release/community_safety.py'
+      - 'scripts/test-community-safety-host.sh'
+      - 'scripts/pi5_hw/community_tester.py'
+      - 'tests/unit/test_community_release.py'
+      - 'tests/unit/safety_blockers_test.c'
+      - 'tests/community-requirements.txt'
+      - 'docs/community/**'
+      - '.github/workflows/community-package.yml'
+      - 'LICENSE'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Committed source, EFI reproducibility, safety boundary and PDF
+    runs-on: ubuntu-24.04
+    container:
+      image: ubuntu:26.04@sha256:065aa8626841f16057b78b027b464cd59c4fac36c204c72dcbf48d66f5fa8a96
+    timeout-minutes: 30
+    env:
+      RROS_DISPOSABLE_CI: '1'
+      PYTHONUTF8: '1'
+    steps:
+      - name: Bootstrap exact-revision Git checkout
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git=1:2.53.0-1ubuntu1.1 ca-certificates=20260816ubuntu0.26.04.2 gh=2.46.0-4
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
+        with:
+          persist-credentials: false
+      - name: Verify repository remains private
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh repo view "$GITHUB_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+      - name: Provision pinned disposable build tools
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          sh scripts/release/provision-ci.sh
+          apt-get -o Acquire::Check-Valid-Until=false install -y --no-install-recommends python3-venv
+          python3 -m venv .venv-community
+          .venv-community/bin/pip install --require-hashes -r tests/community-requirements.txt
+      - name: Focused package, offline safety and independent PDF tests
+        run: .venv-community/bin/python tests/unit/test_community_release.py
+      - name: Targeted C17 compiler and static-analysis evidence
+        run: python3 scripts/release/community_safety.py
+      - name: Probe and allocator safety regressions with ASan, UBSan and TSan
+        run: sh scripts/test-community-safety-host.sh
+      - name: Compile isolated diagnostic probe without physical execution
+        run: EXPERIMENTALOS_PROBE_DIR="$GITHUB_WORKSPACE/build/community-checks/probe-build" sh scripts/build-pi5-probe.sh
+      - name: Two isolated software builds and reproducible packages
+        run: |
+          python3 scripts/release/community.py --build
+          python3 scripts/release/community.py --build --output build/community-repeat
+          cmp build/community/1.0.0-dev.2/SHA256SUMS build/community-repeat/SHA256SUMS
+          python3 scripts/release/community.py --verify build/community/1.0.0-dev.2
+      - name: Verify source archive can rebuild without Git metadata
+        run: |
+          python3 -m zipfile -e build/community/1.0.0-dev.2/RROS-1.0.0-dev.2-source.zip build/extracted-community
+          ln -s "$GITHUB_WORKSPACE/.toolchain" build/extracted-community/.toolchain
+          python3 build/extracted-community/scripts/release/community.py --source-tree --build --output build/community-from-source
+          cmp build/community/1.0.0-dev.2/SHA256SUMS build/community-from-source/SHA256SUMS
+      - name: Recheck privacy before upload
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh repo view "$GITHUB_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+      - name: Retain verified private community downloads
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, node24
+        with:
+          name: RROS-v1-community
+          path: build/community/1.0.0-dev.2/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Preserve actual static-analysis evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, node24
+        with:
+          name: RROS-v1-static-analysis
+          path: build/community-checks/
+          if-no-files-found: warn
+          retention-days: 30

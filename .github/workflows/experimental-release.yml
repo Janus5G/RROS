@@ -1,0 +1,165 @@
+name: Release validation
+
+on:
+  release:
+    types: [published]
+  pull_request:
+    paths:
+      - 'arch/**'
+      - 'boot/**'
+      - 'kernel/**'
+      - 'sdk/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'tools/**'
+      - 'docs/**'
+      - '.github/**'
+      - '*.md'
+      - 'OSBuild.pdf'
+      - 'build/gate_state.json'
+  workflow_dispatch:
+    inputs:
+      review_only:
+        description: 'Run CR-01 through CR-07 and release infrastructure only; no builds or gate audit'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experimental-release-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  review-regressions:
+    name: Code Review ${{ matrix.finding }} software regressions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        finding: [CR01, CR02, CR03, CR04, CR05, CR06, CR07]
+    steps:
+      - name: Check out exact event revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
+        with:
+          persist-credentials: false
+      - name: Verify private first-stage repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh repo view "$GITHUB_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+      - name: Provision isolated hash-pinned serial dependency
+        run: |
+          python3 -m venv .venv-review
+          .venv-review/bin/pip install --require-hashes -r tests/pi5_hw_validation/requirements.txt
+      - name: Run targeted finding without board access or gate builds
+        env:
+          FINDING: ${{ matrix.finding }}
+        run: .venv-review/bin/python tests/pi5_hw_validation/test_review_regressions.py --finding "$FINDING" --report "build/code-review/$FINDING.json"
+      - name: Recheck privacy before evidence upload
+        id: visibility
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh repo view "$GITHUB_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+          echo 'private=true' >> "$GITHUB_OUTPUT"
+      - name: Upload actual per-finding results
+        if: always() && steps.visibility.outputs.private == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, node24
+        with:
+          name: RROS-${{ matrix.finding }}-${{ github.sha }}
+          path: build/code-review/
+          if-no-files-found: error
+          retention-days: 30
+  software:
+    name: ${{ inputs.review_only && 'Release infrastructure only (no gate audit)' || 'Gates, UEFI, probe and reproducible archives' }}
+    needs: review-regressions
+    runs-on: ubuntu-24.04
+    container:
+      image: ubuntu:26.04@sha256:065aa8626841f16057b78b027b464cd59c4fac36c204c72dcbf48d66f5fa8a96
+    timeout-minutes: 90
+    env:
+      RROS_DISPOSABLE_CI: '1'
+      PYTHONUTF8: '1'
+      EXPERIMENTALOS_QEMU_TIMEOUT: '120'
+    steps:
+      - name: Bootstrap Git before exact-revision checkout
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git=1:2.53.0-1ubuntu1.1 ca-certificates=20260816ubuntu0.26.04.2 gh=2.46.0-4
+      - name: Check out exact event revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
+        with:
+          persist-credentials: false
+      - name: Require a real Git checkout (not an archive fallback)
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git rev-parse --verify HEAD
+      - name: Provision snapshot-pinned software and firmware tools
+        run: sh scripts/release/provision-ci.sh
+      - name: Verify private first-stage repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          test "$(gh repo view "$RELEASE_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+      - name: Record upstream access limits and provision pinned probe firmware
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/pi5-boot-chain-cache
+          printf '%s\n' \
+            'NOT_TESTABLE G15 live upstream: RoboForge is PRIVATE; the RROS job token has no cross-repository access.' \
+            'NOT_TESTABLE G16 upstream cross-check: ChromaNeural is PRIVATE; the RROS job token has no cross-repository access.' \
+            'Committed pinned contract/vector fixtures remain tested. Full upstream checks run locally with existing owner-authorized checkouts.' \
+            > .toolchain/compatibility-access.txt
+          curl --fail --location --retry 3 --output build/pi5-boot-chain-cache/RPi5_UEFI_Release_v0.3.zip https://github.com/worproject/rpi5-uefi/releases/download/v0.3/RPi5_UEFI_Release_v0.3.zip
+          echo '2337df318845448ebcc8a6a587d15dccec44b54c665ece21250d2f6170732724  build/pi5-boot-chain-cache/RPi5_UEFI_Release_v0.3.zip' | sha256sum -c -
+      - name: Validate Python syntax and public documentation links
+        run: python3 scripts/release/check.py
+      - name: Review-only release infrastructure self-tests (not the gate audit)
+        if: github.event_name == 'workflow_dispatch' && inputs.review_only
+        run: python3 tests/unit/test_release.py
+      - name: Run staged software acceptance and local packaging
+        if: github.event_name != 'workflow_dispatch' || !inputs.review_only
+        run: python3 scripts/release/prepare.py
+      - name: Verify generated checksums
+        if: github.event_name != 'workflow_dispatch' || !inputs.review_only
+        run: |
+          cd build/public-release/0.1.0-experimental.1
+          sha256sum -c SHA256SUMS
+          python3 ../../../scripts/release/verify.py .
+      - name: Verify actually published assets against the event build
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir build/published-release
+          python3 scripts/release/verify.py build/published-release --expected-commit "$RELEASE_COMMIT" --rebuilt-manifest build/public-release/0.1.0-experimental.1/release-manifest.json
+      - name: Recheck privacy before artifact upload
+        id: visibility
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          test "$(gh repo view "$RELEASE_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+          echo 'private=true' >> "$GITHUB_OUTPUT"
+      - name: Upload actual evidence and candidate if built (not a release publication)
+        if: always() && steps.visibility.outputs.private == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, node24
+        with:
+          name: ${{ inputs.review_only && 'RROS-release-infrastructure-' || 'RROS-experimental-candidate-' }}${{ github.sha }}
+          path: |
+            build/public-release/
+            build/published-release/
+            .toolchain/ci-packages.txt
+            .toolchain/compatibility-access.txt
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30

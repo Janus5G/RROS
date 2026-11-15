@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="186" height="24" viewBox="0 0 186 24" role="img" aria-labelledby="title description">
+  <title id="title">Architecture targets: AArch64 and x86-64</title>
+  <desc id="description">RROS architecture targets. Physical platform validation is tracked separately.</desc>
+  <clipPath id="shape"><rect width="186" height="24" rx="4"/></clipPath>
+  <g clip-path="url(#shape)">
+    <path fill="#293b50" d="M0 0h62v24H0z"/>
+    <path fill="#40597b" d="M62 0h124v24H62z"/>
+  </g>
+  <g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="31" y="16">Targets</text>
+    <text x="124" y="16">AArch64 / x86-64</text>
+  </g>
+</svg>

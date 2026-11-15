@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="193" height="24" viewBox="0 0 193 24" role="img" aria-labelledby="title description">
+  <title id="title">Software checks: 7 verified</title>
+  <desc id="description">Verification snapshot: all seven Code Review checks passed in private GitHub Actions run 43456276606 at commit e3ff9e6. Not a live badge or full release-acceptance claim.</desc>
+  <clipPath id="shape"><rect width="193" height="24" rx="4"/></clipPath>
+  <g clip-path="url(#shape)">
+    <path fill="#293b50" d="M0 0h116v24H0z"/>
+    <path fill="#1b695a" d="M116 0h77v24h-77z"/>
+  </g>
+  <g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="58" y="16">Software checks</text>
+    <text x="154" y="16">7 verified</text>
+  </g>
+</svg>

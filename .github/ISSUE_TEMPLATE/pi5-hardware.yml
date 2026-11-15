@@ -1,0 +1,108 @@
+name: Raspberry Pi 5 hardware validation
+description: Submit engineering reviews or independently authorized observations with safety-gate evidence.
+title: "[Pi5 hardware] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Physical Raspberry Pi 5 functionality remains unverified. QEMU is not a physical Pi test.
+        Read the [safety guide](https://github.com/Janus5G/RROS/blob/main/docs/community/COMMUNITY_SAFETY.md)
+        and [safety gate](https://github.com/Janus5G/RROS/blob/main/docs/community/SAFETY_GATE.json) first.
+        The current community gate approves no physical connection, power-up, RROS boot or
+        peripheral procedure. Engineering review and offline log analysis are welcome.
+        Raw writes/formatting erase data; EEPROM changes require explicit owner approval.
+        Archived UEFI v0.3 has C1/D0, display, ACPI/Device Tree and Ethernet limitations.
+        Never upload credentials, private keys or personal information. A measurement is
+        evidence for independent review, not automatic physical-test approval.
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Safety and evidence boundaries
+      options:
+        - label: I read the community safety gate and do not treat blocked or unverified operations as approved.
+          required: true
+        - label: I distinguish vendor-OS, firmware, probe, QEMU and native RROS observations.
+          required: true
+        - label: Any destructive operation or firmware change was explicitly authorized by the device owner.
+          required: true
+        - label: I reviewed submitted text and files for secrets, personal information and unnecessary device or network identifiers.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release tag/version and source commit
+      placeholder: 1.0.0-dev.2; full commit
+    validations:
+      required: true
+  - type: textarea
+    id: sha256
+    attributes:
+      label: Tested archive and EFI SHA-256
+      description: Where available, exact filenames, full hashes, verification command and expected/actual values; otherwise NOT_VERIFIED.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: board
+    attributes:
+      label: Exact board and hardware configuration
+      description: Pi 5 board revision, BCM2712 C1/D0 if known, RAM, PSU, cooling, HAT/PCIe, devices and cables.
+    validations:
+      required: true
+  - type: textarea
+    id: firmware
+    attributes:
+      label: Firmware and boot media
+      description: If already known, EEPROM version/date, UEFI version/hash, DT/ACPI settings and media; otherwise NOT_VERIFIED. Do not run blocked operations to obtain them.
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety-gate checklist and independent review
+      description: Existing requirement IDs and E01-E10; prerequisites, procedure approval and reviewer role, or BLOCKED/NOT_VERIFIED.
+    validations:
+      required: true
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Measurements and evidence if separately authorized
+      description: Instrument/range, conditions, points, values and units, uncertainty, acceptance limits, independent assessment and redactions. Otherwise NOT_VERIFIED.
+  - type: textarea
+    id: results
+    attributes:
+      label: Individual results and environments
+      description: Existing SW-01 to SW-05, HW-01 to HW-03 or requirement ID; environment, PASS/FAIL/BLOCKED/NOT_VERIFIED, evidence and reason. A software PASS does not establish hardware PASS.
+      value: |
+        Date/duration:
+        Vendor-OS baseline:
+        Firmware boot / app discovery:
+        UART / complete probe and END counters:
+        CPU / exception / MMU / memory / timer:
+        PCIe/RP1 FDT descriptions:
+        Actual PCIe link / BAR / MSI-X:
+        USB keyboard / mouse / storage:
+        Ethernet / DHCP:
+        Display / HDMI:
+        microSD / native storage:
+        Camera:
+        Audio:
+        Wi-Fi / Bluetooth:
+        GPIO / I2C / SPI:
+        Stability / temperatures:
+        Overall: HARDWARE_NOT_VERIFIED pending evidence review
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: UART logs and diagnostic reports
+      description: If already available and shareable, attach redacted UART logs or diagnostic JSON/PDF/ZIP and SHA-256. Otherwise NOT_VERIFIED; do not connect hardware to obtain logs.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction, recovery and limitations
+      description: If applicable, authorized steps, expected/actual behavior, last marker, firmware changes and destructive operations; otherwise NOT_VERIFIED.
+  - type: textarea
+    id: visuals
+    attributes:
+      label: Optional screenshots, photographs, diagrams and videos
+      description: Attach files or add a comment; label vendor OS, firmware, probe, RROS, concept and redactions explicitly.

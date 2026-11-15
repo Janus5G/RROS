@@ -1,0 +1,37 @@
+# Authentic marker excerpt: logs/pi5_probe/20261113T120113Z_qemu_probe_serial.log.
+# Generic QEMU/AAVMF only. NOT physical Raspberry Pi 5 evidence.
+PI5PROBE BEGIN revision=64ad10363615 scope=read-only boot-services
+PI5PROBE HANDOFF firmware_vendor=Ubuntu distribution of EDK II firmware_revision=0x0000000000010000 config_tables=8
+PI5PROBE CONFIG-TABLES acpi=0 fdt=1
+PI5PROBE CHECK name=handoff-uefi-system-table result=PASS
+PI5PROBE CHECK name=config-table-fdt-present result=PASS
+PI5PROBE CPU current_el=1 midr=0x00000000410fd083 mpidr=0x0000000080000000 id_aa64mmfr0=0x0000000000001124 id_aa64pfr0=0x0000000000000022 sctlr=0x0000000030d0198d vbar=0x000000007f622000
+PI5PROBE CHECK name=cpu-exception-level-1-or-2 result=PASS
+PI5PROBE CHECK name=cpu-firmware-mmu-enabled result=PASS
+PI5PROBE CHECK name=cpu-physical-address-range result=PASS
+PI5PROBE EXCEPTION count=1 esr=0x00000000f2000000 elr=0x000000007e8708f8 vbar_restored=1
+PI5PROBE CHECK name=exception-brk-vector-entered result=PASS
+PI5PROBE CHECK name=exception-vbar-restored result=PASS
+PI5PROBE MEMMAP status=0x0000000000000000 bytes=3408 descriptor_size=48 descriptors=71 conventional_pages=254040 mmio_pages=16385 lowest=0x0000000004000000 highest=0x0000000080000000
+PI5PROBE CHECK name=memmap-validates-for-mmu-handoff result=PASS
+PI5PROBE CHECK name=memmap-conventional-memory-present result=PASS
+PI5PROBE DT blob_found=1 blob_bytes=1052672 node_capacity=512 parse=1 nodes=57 root_compatible=linux,dummy-virt
+PI5PROBE CHECK name=dt-blob-found result=PASS
+PI5PROBE CHECK name=dt-parses-with-production-parser result=PASS
+PI5PROBE UART-SELECT begin
+PI5PROBE UART resolved=1 stdout_path=/pl011@9000000 node=pl011@9000000 base=0x0000000009000000 span=0x0000000000001000
+PI5PROBE CHECK name=uart-stdout-resolved result=PASS
+PI5PROBE UART-ENABLE about-to-write-firmware-configured-pl011 (last marker if the board hangs)
+PI5PROBE UART-ACTIVE source=fdt-pl011 firmware-configured, not reprogrammed
+PI5PROBE CHECK name=uart-fdt-console-active result=PASS
+PI5PROBE GIC node=intc@8000000 compatible=arm,cortex-a15-gic reg0=0x0000000008000000+0x0000000000010000 reg1=0x0000000008010000+0x0000000000010000 mmio_access=none
+PI5PROBE GIC-CPU-IF id_aa64pfr0_gic=0
+PI5PROBE CHECK name=gic-controller-described-in-dt result=PASS detail=DT description only; no GIC register access is performed by the probe
+PI5PROBE TIMER cntfrq=62500000 ticks_per_100ms=6253631
+PI5PROBE CHECK name=timer-frequency-reported result=PASS
+PI5PROBE CHECK name=timer-counter-advances-with-firmware-stall result=PASS
+PI5PROBE PCIE node=pcie@10000000 enabled=1 compatible=pci-host-ecam-generic reg0=0x0000004010000000+0x0000000010000000 mmio_access=none
+PI5PROBE PCIE-SUMMARY enabled_controllers=1 rp1_nodes=0 ecam_or_config_access=none
+PI5PROBE CHECK name=platform-pcie-controller-enabled-in-dt result=PASS detail=informational on non-Pi5 platforms
+PI5PROBE CHECK name=platform-rp1-described-in-dt result=FAIL detail=informational on non-Pi5 platforms
+PI5PROBE END pass=17 fail=1 result=DIAGNOSTICS-FAILURES physical_claims=none

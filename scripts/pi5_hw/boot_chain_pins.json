@@ -1,0 +1,23 @@
+{
+  "source": "https://github.com/worproject/rpi5-uefi",
+  "release": "v0.3",
+  "published": "2024-03-16",
+  "url": "https://github.com/worproject/rpi5-uefi/releases/download/v0.3/RPi5_UEFI_Release_v0.3.zip",
+  "zip": {
+    "name": "RPi5_UEFI_Release_v0.3.zip",
+    "size": 1252807,
+    "sha256": "2337df318845448ebcc8a6a587d15dccec44b54c665ece21250d2f6170732724"
+  },
+  "files": {
+    "config.txt": {"size": 331, "sha256": "cf8f011f2c9796192dee7429a868ace60586dad7b48d1655775396bde2e614f8"},
+    "bcm2712-rpi-5-b.dtb": {"size": 76038, "sha256": "c5432acc8373fa6311e147221b8ba5c8685b957730afac7592c5deac2b27e732"},
+    "RPI_EFI.fd": {"size": 2031616, "sha256": "fda5ef5afbfefb519143a06a9f0299517033c8723b75f38c5746bbef2afb6419"}
+  },
+  "notes": [
+    "Third-party firmware, not built or verified by this project; licence review (TF-A, edk2-non-osi, Broadcom components) is an owner action.",
+    "Default System Table Mode is ACPI; select Device Tree in Device Manager > Raspberry Pi Configuration > ACPI / Device Tree > System Table Mode, otherwise the probe sees no FDT table.",
+    "Upstream reports tested on BCM2712 C1 boards; D0 boards may need a newer EEPROM and carry a display risk.",
+    "Upstream reports RP1 USB, display, PCIe, SD and RNG working; RP1 Ethernet and EEPROM NVRAM not working.",
+    "Never verified on hardware by this project (HARDWARE_NOT_VERIFIED)."
+  ]
+}

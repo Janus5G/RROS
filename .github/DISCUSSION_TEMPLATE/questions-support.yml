@@ -1,0 +1,31 @@
+title: "[Question] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome! Do not include passwords, keys, personal information or unnecessary
+        device/network identifiers. Physical testing remains subject to the safety gate.
+  - type: textarea
+    id: question
+    attributes:
+      label: What is your question?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Relevant software and hardware context
+      description: Include RROS version/commit, host or board revision and environment when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What have you already tried?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Optional redacted supporting files
+      description: Attach or add a comment with relevant logs or screenshots; label synthetic data.

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="194" height="24" viewBox="0 0 194 24" role="img" aria-labelledby="title">
+  <title id="title">Stage: private pre-release review; no public release approved</title>
+  <clipPath id="shape"><rect width="194" height="24" rx="4"/></clipPath>
+  <g clip-path="url(#shape)">
+    <path fill="#293b50" d="M0 0h54v24H0z"/>
+    <path fill="#455b73" d="M54 0h140v24H54z"/>
+  </g>
+  <g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="27" y="16">Stage</text>
+    <text x="124" y="16">Private pre-release</text>
+  </g>
+</svg>

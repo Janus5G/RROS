@@ -1,0 +1,45 @@
+name: Native ARM64 software tests
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-arm64:
+    name: Host regressions and sanitizers
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
+        with:
+          persist-credentials: false
+      - name: Run existing native host tests
+        run: python3 scripts/run_arm64_ci.py
+      - name: Native probe and allocator safety regressions (software only)
+        run: sh scripts/test-community-safety-host.sh
+      - name: Verify private first-stage visibility
+        id: visibility
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          test "$(gh repo view "$RELEASE_REPOSITORY" --json isPrivate --jq .isPrivate)" = true
+          echo 'private=true' >> "$GITHUB_OUTPUT"
+      - name: Publish structured test evidence
+        if: always() && steps.visibility.outputs.private == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2, node24
+        with:
+          name: native-arm64-evidence
+          path: |
+            build/arm64-ci/result.json
+            build/arm64-ci/SHA256SUMS.txt
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,52 @@
+<!-- SPDX-FileCopyrightText: 2026 RROS contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="430" viewBox="0 0 1400 430" role="img" aria-labelledby="title description">
+  <title id="title">RoboticRasOS (RROS) arkitekturoversigt</title>
+  <desc id="description">Platformspecifik UEFI-opstart leder til en fælles C17-kerne og afgrænsede applikations-/servicekontrakter. Det særskilte Pi 5-diagnosespor afventer fysisk validering. En komponentillustration, ikke hardwareevidens.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0l7 4-7 4z" fill="#74cbbd"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="430" rx="16" fill="#101d30"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <g font-size="18" letter-spacing="2" fill="#9db6ca">
+      <text x="46" y="48">01 / PLATFORMOPSTART</text>
+      <text x="517" y="48">02 / FÆLLES NATIVE KERNE</text>
+      <text x="991" y="48">03 / SERVICEGRÆNSEFLADER</text>
+    </g>
+    <g fill="#192c41" stroke="#35506a" stroke-width="1.5">
+      <rect x="40" y="80" width="376" height="236" rx="12"/>
+      <rect x="510" y="80" width="382" height="236" rx="12"/>
+      <rect x="984" y="80" width="376" height="236" rx="12"/>
+    </g>
+    <g stroke="#74cbbd" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M428 196H492"/>
+      <path d="M904 196H966"/>
+    </g>
+    <g font-size="25" font-weight="600" fill="#eef4fa">
+      <text x="68" y="132">x86-64 / OVMF</text>
+      <text x="68" y="175">AArch64 / AAVMF</text>
+      <text x="538" y="132">Freestanding C17</text>
+      <text x="1012" y="132">ABI- og servicekontrakter</text>
+    </g>
+    <path d="M68 197h320" stroke="#35506a"/>
+    <g font-size="22" fill="#b8ccdc">
+      <text x="68" y="239" font-size="19">UEFI-entry og firmwareoverdragelse</text>
+      <text x="68" y="275">Arkitekturspecifik opstart</text>
+      <text x="538" y="180">Hukommelsesejerskab</text>
+      <text x="538" y="222">Kooperative processer</text>
+      <text x="538" y="264">Systemkald og fejlindkapsling</text>
+    </g>
+    <g font-size="20" fill="#b8ccdc">
+      <text x="1012" y="180">Classic / Flow-softwarerendering</text>
+      <text x="1012" y="222">Native SDK og afgrænsede services</text>
+      <text x="1012" y="264">Valgfrie AI-/MCP-integrationer</text>
+    </g>
+    <rect x="40" y="348" width="1320" height="54" rx="10" fill="#142638" stroke="#46637a" stroke-dasharray="5 5"/>
+    <text x="65" y="381" font-size="21" fill="#afc7d8">
+      <tspan font-weight="600" fill="#80d9c5">Pi 5-diagnosespor</tspan>
+      <tspan>  /  Firmware-FDT, UART-, CPU- og hukommelseschecks  /  Fysisk validering afventer</tspan>
+    </text>
+  </g>
+</svg>

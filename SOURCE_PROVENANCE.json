@@ -1,0 +1,25 @@
+{
+  "excluded": [
+    "tests/gates/fixtures/",
+    "docs/site/",
+    "docs/owner/",
+    ".github/agents/",
+    "docs/DECISION_LOG.md",
+    "docs/EXPERT_REVIEW_WORKFLOW.md",
+    "docs/MASTER_GATES.md",
+    "docs/MCP_PI5_DEVELOPMENT_ADDENDUM.md",
+    "OSBuild.pdf",
+    "build/",
+    "logs/",
+    ".toolchain/",
+    "third-party binaries and firmware"
+  ],
+  "hardware_verification": "NOT_VERIFIED",
+  "source": "Derived from the original source archive; locally updated community documentation and forms",
+  "source_commit": "df8e20e76580898c57a25a98049aa72419b9a86e",
+  "community_source_commit": "606674f965eac1a68684d30e7b8aca8101a4c024",
+  "original_source_archive_sha256": "fbf70f48b9ad48fb379e592d9816ec7c2a5736d09168a378410651cb9c210f66",
+  "local_changes": "Community files from the approved community commit and future-repository guidance; internal planning documents excluded, unavailable historical-log links marked as unavailable, release documentation copy target adjusted, and distribution metadata updated. No software binaries were rebuilt.",
+  "source_date_epoch": 1794663368,
+  "version": "1.0.0-dev.2"
+}

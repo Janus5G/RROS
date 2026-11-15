@@ -1,0 +1,39 @@
+title: "[Community build] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share genuine, clearly labeled work. The current safety gate approves no physical
+        RROS boot, connections, power-up or peripheral tests. Do not perform a blocked
+        operation to complete this form. Redact secrets and personal information.
+        [Safety and evidence](https://github.com/Janus5G/RROS/blob/main/docs/community/COMMUNITY_SAFETY.md)
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware model and revision
+      description: Include the board and environment, or say not applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: components
+    attributes:
+      label: Components and assembly details
+      description: List the components and the scope of any disconnected inspection.
+    validations:
+      required: true
+  - type: textarea
+    id: features
+    attributes:
+      label: Working features and evidence
+      description: Identify actual source, host, QEMU, vendor OS or physical environment; distinguish plans from observations.
+    validations:
+      required: true
+  - type: textarea
+    id: problems
+    attributes:
+      label: Problems or limitations encountered
+  - type: textarea
+    id: media
+    attributes:
+      label: Optional photos, screenshots, diagrams or video
+      description: Attach or add a comment with redacted files; label their source and whether they are concepts or captures.

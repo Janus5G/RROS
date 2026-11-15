@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "PREPARED_NOT_APPLIED",
+  "repository": "Janus5G/RROS",
+  "source": "docs/community/DISCUSSIONS.md approved category configuration",
+  "note": "The former repository was deleted. No hosted categories, posts, comments, reactions or answers were recovered. This manifest prepares the approved configuration for the future repository; it does not restore historical GitHub-hosted data.",
+  "restore_tool": "scripts/release/restore_discussions.py",
+  "categories": [
+    {
+      "name": "Announcements",
+      "slug": "announcements",
+      "emoji": "\ud83d\udce2",
+      "emoji_code": ":mega:",
+      "format": "announcement",
+      "is_answerable": false,
+      "description": "Official RROS announcements, releases, updates and development milestones.",
+      "form": null,
+      "optional": false
+    },
+    {
+      "name": "Questions & Support",
+      "slug": "questions-support",
+      "emoji": "\u2753",
+      "emoji_code": ":question:",
+      "format": "question-answer",
+      "is_answerable": true,
+      "description": "Ask questions, receive technical support and share verified solutions.",
+      "form": ".github/DISCUSSION_TEMPLATE/questions-support.yml",
+      "optional": false
+    },
+    {
+      "name": "Community Builds",
+      "slug": "community-builds",
+      "emoji": "\ud83e\udd16",
+      "emoji_code": ":robot:",
+      "format": "open-ended",
+      "is_answerable": false,
+      "description": "Share robot projects, Raspberry Pi builds, photos, videos and practical experiences.",
+      "form": ".github/DISCUSSION_TEMPLATE/community-builds.yml",
+      "optional": false
+    },
+    {
+      "name": "Hardware & Compatibility",
+      "slug": "hardware-compatibility",
+      "emoji": "\ud83d\udd27",
+      "emoji_code": ":wrench:",
+      "format": "open-ended",
+      "is_answerable": false,
+      "description": "Discuss components, hardware compatibility, electrical safety and documented test results.",
+      "form": null,
+      "optional": false
+    },
+    {
+      "name": "Bugs & Troubleshooting",
+      "slug": "bugs-troubleshooting",
+      "emoji": "\ud83d\udc1b",
+      "emoji_code": ":bug:",
+      "format": "question-answer",
+      "is_answerable": true,
+      "description": "Discuss errors and troubleshooting. Report reproducible defects through GitHub Issues.",
+      "form": null,
+      "optional": false
+    },
+    {
+      "name": "Ideas & Feature Requests",
+      "slug": "ideas-feature-requests",
+      "emoji": "\ud83d\udca1",
+      "emoji_code": ":bulb:",
+      "format": "open-ended",
+      "is_answerable": false,
+      "description": "Suggest and discuss new features, improvements and integrations.",
+      "form": ".github/DISCUSSION_TEMPLATE/ideas-feature-requests.yml",
+      "optional": false
+    },
+    {
+      "name": "Development & Contributions",
+      "slug": "development-contributions",
+      "emoji": "\ud83d\udcbb",
+      "emoji_code": ":computer:",
+      "format": "open-ended",
+      "is_answerable": false,
+      "description": "Collaborate on RROS development, drivers, documentation and pull requests.",
+      "form": null,
+      "optional": false
+    },
+    {
+      "name": "Polls",
+      "slug": "polls",
+      "emoji": "\ud83d\udcca",
+      "emoji_code": ":bar_chart:",
+      "format": "poll",
+      "is_answerable": false,
+      "description": "Community polls and feedback on proposed project improvements.",
+      "form": null,
+      "optional": true
+    }
+  ]
+}

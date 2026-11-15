@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="111" height="24" viewBox="0 0 111 24" role="img" aria-labelledby="title">
+  <title id="title">Documentation: English and Danish README and Pi 5 guides</title>
+  <clipPath id="shape"><rect width="111" height="24" rx="4"/></clipPath>
+  <g clip-path="url(#shape)">
+    <path fill="#293b50" d="M0 0h46v24H0z"/>
+    <path fill="#315f86" d="M46 0h65v24H46z"/>
+  </g>
+  <g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="23" y="16">Docs</text>
+    <text x="78" y="16">EN / DA</text>
+  </g>
+</svg>

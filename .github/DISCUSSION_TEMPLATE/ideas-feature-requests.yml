@@ -1,0 +1,31 @@
+title: "[Idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose an improvement without implying it is implemented or approved for
+        physical use. Do not include secrets or personal information.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed functionality
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: Intended use and problem addressed
+    validations:
+      required: true
+  - type: textarea
+    id: considerations
+    attributes:
+      label: Technical considerations and relevant RROS components
+      description: Include constraints, compatibility, safety and alternatives if known.
+    validations:
+      required: true
+  - type: textarea
+    id: supporting
+    attributes:
+      label: Optional diagrams or supporting evidence
+      description: Attach or comment with redacted original material; identify concepts and sources.

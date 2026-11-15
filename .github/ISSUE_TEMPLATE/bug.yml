@@ -1,0 +1,54 @@
+name: Reproducible software defect
+description: Report a source, build, package or supported software-test failure.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use Discussions for general questions. Do not include secrets, personal paths,
+        network identifiers or proprietary data. Physical tests are blocked unless their
+        safety gate and a separate procedure explicitly authorize them. See the
+        [community guidance](https://github.com/Janus5G/RROS/blob/main/docs/community/COMMUNITY.md).
+  - type: input
+    id: revision
+    attributes:
+      label: Source commit and package version
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Host or hardware platform, architecture and toolchain versions
+      description: Explicitly distinguish native host, QEMU and physical hardware.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps and commands
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted error logs, screenshots, exit codes and SHA-256
+      description: Attach files or add them in a comment; identify redactions and synthetic fixtures.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Evidence review
+      options:
+        - label: I reviewed the report for secrets and unnecessary personal information.
+          required: true

@@ -1,0 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2026 RROS contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="225" height="24" viewBox="0 0 225 24" role="img" aria-labelledby="title description">
+<title id="title">Softwarechecks: 7 verificerede</title><desc id="description">Verificeret øjebliksbillede: syv Code Review-checks bestået i privat Actions-kørsel 43456276606 ved e3ff9e6. Ikke live-badge eller samlet releaseaccept.</desc>
+<clipPath id="shape"><rect width="225" height="24" rx="4"/></clipPath><g clip-path="url(#shape)"><path fill="#293b50" d="M0 0h116v24H0z"/><path fill="#1b695a" d="M116 0h109v24H116z"/></g>
+<g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle"><text x="58" y="16">Softwarechecks</text><text x="170" y="16">7 verificerede</text></g>
+</svg>

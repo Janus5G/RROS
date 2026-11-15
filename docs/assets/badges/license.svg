@@ -1,0 +1,14 @@
+<!-- SPDX-FileCopyrightText: 2026 RROS contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="198" height="24" viewBox="0 0 198 24" role="img" aria-labelledby="title">
+  <title id="title">Original RROS software: GPL-3.0-or-later; third-party terms separate</title>
+  <clipPath id="shape"><rect width="198" height="24" rx="4"/></clipPath>
+  <g clip-path="url(#shape)">
+    <path fill="#293b50" d="M0 0h62v24H0z"/>
+    <path fill="#235f67" d="M62 0h136v24H62z"/>
+  </g>
+  <g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="31" y="16">License</text>
+    <text x="130" y="16">GPL-3.0-or-later</text>
+  </g>
+</svg>

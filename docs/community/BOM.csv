@@ -1,0 +1,14 @@
+item,quantity,specification,review_requirement
+Raspberry Pi 5 Model B,1,4 or 8 GB RAM; record board revision and stepping,Exact revision must match independent firmware and electrical review
+Power supply,1,Official Raspberry Pi 27 W USB-C supply or independently qualified equivalent; 5.1 V 5 A profile,No GPIO power injection; verify vendor documentation and cable; no connection approved by this kit
+Cooling,1,Pi 5-compatible Active Cooler and vendor-specified mounting,Inspect fasteners and board clearances while fully disconnected
+Insulated work surface,1,Stable dry nonconductive surface; no loose metal,Independent inspection for shorts and ESD handling
+Disposable microSD,1,16 GB or greater; no valuable data,Device identity and backup review before any separate media-writing approval
+microSD reader,1,Compatible with the selected card,Not a permission to format any device
+Known-working baseline media,1,Separate vendor-OS card,Vendor baseline does not prove RROS functionality
+Debug probe,1,Official Raspberry Pi Debug Probe and correct 3-pin cable,Review exact connector orientation and 3.3 V logic; no guessed pin mapping
+Host computer,1,Windows 11 with WSL2 Ubuntu 26.04 or verified Ubuntu 26.04; Python 3.11+,Offline log import and build only under current gate
+USB data cable,1,Correct rated cable for the debug probe,No power-lead attachment or hot-plug approval
+Monitor and micro-HDMI cable,0-1 each,Optional firmware-review equipment,No native RROS HDMI support claim
+USB keyboard,0-1,Optional known-working vendor baseline device,Native USB operation not approved
+Multimeter,0-1,Appropriately rated; operated by qualified reviewer,No live measurement procedure is approved by this kit

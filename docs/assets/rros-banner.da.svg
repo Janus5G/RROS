@@ -1,0 +1,45 @@
+<!-- SPDX-FileCopyrightText: 2026 RROS contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="440" viewBox="0 0 1400 440" role="img" aria-labelledby="title description">
+  <title id="title">RoboticRasOS (RROS)</title>
+  <desc id="description">RoboticRasOS (RROS), et selvstændigt udviklet native operativsystem til robotteknologi, AI-applikationer og generel databehandling. Abstrakt illustration, ikke skærmbillede eller hardwarefotografi.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1729"/><stop offset="1" stop-color="#172d43"/></linearGradient>
+    <radialGradient id="ambient"><stop stop-color="#226b79" stop-opacity=".48"/><stop offset="1" stop-color="#226b79" stop-opacity="0"/></radialGradient>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2b5166"/><stop offset="1" stop-color="#162e45"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#71e3ca"/><stop offset="1" stop-color="#83b7fb"/></linearGradient>
+  </defs>
+  <rect width="1400" height="440" rx="20" fill="url(#background)"/>
+  <ellipse cx="1120" cy="205" rx="370" ry="285" fill="url(#ambient)"/>
+  <g fill="none" stroke="#8ab9d2" stroke-opacity=".09">
+    <path d="M805 0v440m80-440v440m80-440v440m80-440v440m80-440v440m80-440v440m80-440v440"/>
+    <path d="M790 60h610M790 140h610M790 220h610M790 300h610M790 380h610"/>
+  </g>
+  <rect x="80" y="77" width="44" height="4" rx="2" fill="#71e3ca"/>
+  <text x="140" y="86" font-family="Segoe UI,Arial,sans-serif" font-size="19" letter-spacing="3" fill="#b5cbdc">NATIVE OPERATIVSYSTEM</text>
+  <text x="76" y="207" font-family="Segoe UI,Arial,sans-serif" font-size="78" font-weight="700" letter-spacing="-2" fill="#f2f6fb">RoboticRasOS</text>
+  <text x="82" y="262" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#71e3ca">RROS</text>
+  <path d="M189 242v24" stroke="#51697e"/>
+  <text x="214" y="263" font-family="Segoe UI,Arial,sans-serif" font-size="26" fill="#bed0de">Én kerne. To arkitekturer.</text>
+  <path d="M82 307h580" stroke="#31475d"/>
+  <text x="82" y="352" font-family="Consolas,monospace" font-size="19" fill="#9fb8cb">RASPBERRY PI 5</text>
+  <circle cx="276" cy="346" r="3" fill="#71e3ca"/>
+  <text x="302" y="352" font-family="Consolas,monospace" font-size="19" fill="#9fb8cb">AArch64</text>
+  <circle cx="412" cy="346" r="3" fill="#71e3ca"/>
+  <text x="438" y="352" font-family="Consolas,monospace" font-size="19" fill="#9fb8cb">x86-64</text>
+  <g fill="none" stroke="#59859e" stroke-width="2">
+    <path d="M922 147h-34v-42h-45" stroke-dasharray="5 7"/>
+    <path d="M1247 223h51v80h42" stroke-dasharray="5 7"/>
+    <path d="M1092 300v49h-113" stroke-dasharray="5 7"/>
+  </g>
+  <g fill="#71e3ca"><circle cx="843" cy="105" r="5"/><circle cx="1340" cy="303" r="5"/><circle cx="979" cy="349" r="5"/></g>
+  <path d="M940 225l152-78 152 78-152 78z" fill="#152a40" stroke="#38566e" stroke-width="2"/>
+  <path d="M940 188l152-78 152 78-152 78z" fill="#1d374d" stroke="#52758d" stroke-width="2"/>
+  <path d="M940 151l152-78 152 78-152 78z" fill="url(#surface)" stroke="url(#accent)" stroke-width="2"/>
+  <path d="M975 151l117-60 117 60-117 60z" fill="none" stroke="#7ed8d1" stroke-opacity=".3"/>
+  <g fill="url(#accent)">
+    <path d="M1060 128l27-14 27 14-27 14z"/><path d="M1028 145l27-14 27 14-27 14z" opacity=".8"/>
+    <path d="M1092 145l27-14 27 14-27 14z" opacity=".8"/><path d="M1060 162l27-14 27 14-27 14z" opacity=".6"/>
+  </g>
+  <text x="1092" y="385" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" letter-spacing="4" fill="#a4bfd2">FÆLLES FUNDAMENT</text>
+</svg>

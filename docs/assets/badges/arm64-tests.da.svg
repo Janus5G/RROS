@@ -1,0 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2026 RROS contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="188" height="24" viewBox="0 0 188 24" role="img" aria-labelledby="title description">
+<title id="title">ARM64-CI: 4 suiter bestået</title><desc id="description">Verificeret øjebliksbillede: G03, G05, G06 og G07 bestået i kørsel 43457450774 ved 97f39d9. Dækker ikke native G12 eller fysisk Pi-hardware.</desc>
+<clipPath id="shape"><rect width="188" height="24" rx="4"/></clipPath><g clip-path="url(#shape)"><path fill="#293b50" d="M0 0h76v24H0z"/><path fill="#1b695a" d="M76 0h112v24H76z"/></g>
+<g fill="#fff" font-family="Segoe UI,Arial,sans-serif" font-size="12" text-anchor="middle"><text x="38" y="16">ARM64-CI</text><text x="132" y="16">4 suiter bestået</text></g>
+</svg>

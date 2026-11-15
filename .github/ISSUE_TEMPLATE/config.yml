@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions, builds and ideas
+    url: https://github.com/Janus5G/RROS/discussions
+    about: Use Discussions for collaboration; use issue forms for reproducible defects and safety reports.
+  - name: Security reporting
+    url: https://github.com/Janus5G/RROS/security/policy
+    about: Read the security policy before sharing sensitive details.
